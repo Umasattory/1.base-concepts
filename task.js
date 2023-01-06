@@ -29,10 +29,14 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 		return(`Не корректное значение параметра "Общая стоимость" "${amount}"`)
 	}
 
-	let totalAmount, loanBody, monthes, today, monthPay, p;
-
-	//Определение "тела кредита"
-	loanBody = amount - contribution; 
+	let months;
+	months = (date.getFullYear() - today.getFullYear()) * 12;
+	months -= today.getMonth();
+	months += date.getMonth();
+	months <= 0 ? 0 : months;
+	
+	const p = percent / (100 * 2);
+	const monthPay = creditBody * (p + (p / ((Math.pow((1 + p) ** months) - 1))));
 
 	//Определение количества месяцев
 	today = new Date();
@@ -48,3 +52,4 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 	console.log(totalAmount)
 	return totalAmount;
 }	
+
